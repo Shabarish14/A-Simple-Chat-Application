@@ -30,9 +30,7 @@ typedef enum {
     INVALID_COMMAND
 } Command_type;
 
-Client clients[FD_SETSIZE];
-int listeningFdConnection, connFdConnection, maxFdConnections;
-int max = -1;
+
 
 
 void handlingSigintClosingConnections(int sig)
@@ -200,14 +198,6 @@ int getCommandType(char* command) {
     }
 }
 
-char* concatWords(char** words, int numWords, int startIndex) {
-    
-    int totalLength = 0;
-    int i = startIndex;
-    while (i < numWords) {
-        totalLength += strlen(words[i]) + 1; 
-        i++;
-    }
 
     
     char* result = (char*) malloc(sizeof(char) * (totalLength + 1));
@@ -417,9 +407,6 @@ int main()
     servPort = (int)strtol(values[0], (char **)NULL, 10);
     
 
-    listeningFdConnection = bindAndListenServer(servPort);
-    maxFdConnections = listeningFdConnection;
-    FD_SET(listeningFdConnection, &allset);
     
 
     for (i = 0; i <= FD_SETSIZE -1; i++)
