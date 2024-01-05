@@ -145,11 +145,6 @@ void createClientThread(pthread_t *thread, int socketFdConnection)
         fprintf(stderr, "pthread_create error");
 }
 
-void createSocketThread(pthread_t *thread, int socketFdConnection)
-{
-    if (pthread_create(thread, NULL, readFromServerWriteToUser, &socketFdConnection) != 0)
-        fprintf(stderr, "pthread_create error");
-}
 
 void joinThread(pthread_t thread)
 {
@@ -205,12 +200,7 @@ int main(int argc, char **argv)
         servPort = (int)strtol(values[1], (char **)NULL, 10);
         
     }
-    else{
-        servhost=values[1];
-        servPort = (int)strtol(values[0], (char **)NULL, 10);
-    }
-
-    
+   
    
     
     connectToServer(socketFdConnection, servhost, servPort);
